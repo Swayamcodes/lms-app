@@ -1,25 +1,23 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import type { ComponentType } from "react";
-
-// @ts-expect-error: react-player has no type declarations in this project
-const ReactPlayer = dynamic(() => import("react-player"), {
-  ssr: false,
-}) as unknown as ComponentType<Record<string, unknown>>;
-
 interface VideoPlayerProps {
-  url: string;
+  url: string; // your YouTube link from Sanity
 }
 
 export const VideoPlayer = ({ url }: VideoPlayerProps) => {
+  // Convert normal YouTube or youtu.be link → embed link
+  const embedUrl = url
+    .replace("watch?v=", "embed/")
+    .replace("youtu.be/", "www.youtube.com/embed/");
+
   return (
-    <div className="relative aspect-video">
-      <ReactPlayer
-        url={url}
-        width="100%"
-        height="100%"
-        controls
+    <div className="relative w-full aspect-video rounded-lg overflow-hidden">
+      <iframe
+        src={embedUrl}
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        className="w-full h-full border-0"
       />
     </div>
   );

@@ -13,9 +13,9 @@ export const courseType = defineType({
     }),
     {
       name: "price",
-      title: "Price (INR)",
+      title: "Price (USD)",
       type: "number",
-      description: "Price in INR",
+      description: "Price in USD",
       validation: (Rule) => Rule.min(0),
     },
     defineField({
